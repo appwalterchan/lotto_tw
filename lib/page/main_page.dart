@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:lotto_cad/constant/locale_string.dart';
-import 'package:lotto_cad/page/checking_page.dart';
+import 'package:lotto_tw/constant/locale_string.dart';
+import 'package:lotto_tw/page/checking_page.dart';
 
 import '../constant/app_constants.dart';
 import 'all_result_page.dart';

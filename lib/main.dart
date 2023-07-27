@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotto_cad/page/main_page.dart';
+import 'package:lotto_tw/page/main_page.dart';
 
 import 'constant/locale_string.dart';
 

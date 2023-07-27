@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "app.lotto" "\0"
-            VALUE "FileDescription", "lotto_cad" "\0"
+            VALUE "FileDescription", "lotto_tw" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "lotto_cad" "\0"
+            VALUE "InternalName", "lotto_tw" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 app.lotto. All rights reserved." "\0"
-            VALUE "OriginalFilename", "lotto_cad.exe" "\0"
-            VALUE "ProductName", "lotto_cad" "\0"
+            VALUE "OriginalFilename", "lotto_tw.exe" "\0"
+            VALUE "ProductName", "lotto_tw" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

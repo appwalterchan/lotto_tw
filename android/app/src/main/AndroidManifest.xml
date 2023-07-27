@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.lotto.lotto_cad">
+    package="apps.lotto.lotto_tw">
    <application
         android:label="Lotto Canada"
         android:name="${applicationName}"

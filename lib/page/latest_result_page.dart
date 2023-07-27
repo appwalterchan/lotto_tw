@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:lotto_cad/model/canada_lotto.dart';
-import 'package:lotto_cad/model/prize_data.dart';
+import 'package:lotto_tw/model/canada_lotto.dart';
+import 'package:lotto_tw/model/prize_data.dart';
 
 import '../api/prize_data_api.dart';
 import '../component/lotto_num.dart';

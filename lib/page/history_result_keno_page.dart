@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:lotto_cad/component/history_result_keno_check.dart';
-import 'package:lotto_cad/model/canada_lotto.dart';
+import 'package:lotto_tw/component/history_result_keno_check.dart';
+import 'package:lotto_tw/model/canada_lotto.dart';
 
 import '../component/page_header.dart';
 import '../constant/app_constants.dart';

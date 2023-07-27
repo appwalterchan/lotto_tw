@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:lotto_cad/page/check_results_page.dart';
+import 'package:lotto_tw/page/check_results_page.dart';
 
 import '../component/lotto_num_check.dart';
 import '../component/page_header.dart';

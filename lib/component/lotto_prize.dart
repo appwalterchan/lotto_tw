@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lotto_cad/model/prize_data.dart';
+import 'package:lotto_tw/model/prize_data.dart';
 
 import '../constant/app_constants.dart';
 

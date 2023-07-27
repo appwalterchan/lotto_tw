@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:lotto_cad/model/canada_lotto.dart';
+import 'package:lotto_tw/model/canada_lotto.dart';
 
 import '../api/canada_lotto_api.dart';
 import '../component/history_result_check.dart';

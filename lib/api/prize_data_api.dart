@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:lotto_cad/model/prize_data.dart';
+import 'package:lotto_tw/model/prize_data.dart';
 
 class PrizeDataApi {
   static List<PrizeData> prizeDataFromJson(String str) =>

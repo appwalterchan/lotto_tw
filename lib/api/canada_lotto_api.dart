@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:lotto_cad/model/canada_lotto.dart';
+import 'package:lotto_tw/model/canada_lotto.dart';
 
 class CanadaLottoApi {
   static List<CanadaLotto> canadaLottoFromJson(String str) =>
