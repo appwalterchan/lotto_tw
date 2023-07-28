@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:intl/intl.dart';
 import 'package:lotto_tw/model/draw.dart';
 
-import '../component/history_result_check.dart';
+import '../component/lotto_34_hist.dart';
 import '../component/page_header.dart';
 import '../constant/app_constants.dart';
 
-class HistoryResultPage extends StatefulWidget {
+class HistoryResult34Page extends StatefulWidget {
   final List<Draw>? lottoList;
-  final String imgStr;
-  const HistoryResultPage(
-      {super.key, required this.lottoList, required this.imgStr});
+  final String imgStr3;
+  final String imgStr4;
+  const HistoryResult34Page(
+      {super.key,
+      required this.lottoList,
+      required this.imgStr3,
+      required this.imgStr4});
 
   @override
-  State<HistoryResultPage> createState() => _HistoryResultState();
+  State<HistoryResult34Page> createState() => _HistoryResult34State();
 }
 
-class _HistoryResultState extends State<HistoryResultPage> {
+class _HistoryResult34State extends State<HistoryResult34Page> {
   final _kAdIndex = 10;
 
   BannerAd? _anchoredAdaptiveAd;
@@ -90,8 +93,9 @@ class _HistoryResultState extends State<HistoryResultPage> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     // final double screenOffset = screenWidth < 450 ? 50 : 300;
-    final double fontMultipler = screenWidth < 450 ? 1.1 : 0.65;
-    final double textScale = screenWidth / 1200 * fontMultipler;
+    double fontMultiplier = screenWidth < 450 ? 1.1 : 0.65;
+    fontMultiplier = screenWidth > 800 ? 0.55 : fontMultiplier;
+    final double textScale = screenWidth / 1200 * fontMultiplier;
     // final double fontSize = 190 * textScale;
 
     return Scaffold(
@@ -108,47 +112,33 @@ class _HistoryResultState extends State<HistoryResultPage> {
                   ),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
-                imgStr: widget.imgStr),
-            Image(width: 260 * textScale, image: AssetImage(widget.imgStr)),
+                imgStr: null),
+            // Image(width: 260 * textScale, image: AssetImage(widget.imgStr)),
             Expanded(
               child: ListView.builder(
-                itemCount: widget.lottoList!.length +
-                    (_anchoredAdaptiveAd != null ? 1 : 0),
-                itemBuilder: (context, index) {
-                  if (_anchoredAdaptiveAd != null &&
-                      _isLoaded &&
-                      index == _kAdIndex) {
-                    return Container(
-                      width: _anchoredAdaptiveAd!.size.width.toDouble(),
-                      height: _anchoredAdaptiveAd!.size.height.toDouble(),
-                      alignment: Alignment.center,
-                      child: AdWidget(ad: _anchoredAdaptiveAd!),
-                    );
-                  } else {
-                    final item =
-                        widget.lottoList![_getDestinationItemIndex(index)];
+                  itemCount: widget.lottoList!.length +
+                      (_anchoredAdaptiveAd != null ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (_anchoredAdaptiveAd != null &&
+                        _isLoaded &&
+                        index == _kAdIndex) {
+                      return Container(
+                        width: _anchoredAdaptiveAd!.size.width.toDouble(),
+                        height: _anchoredAdaptiveAd!.size.height.toDouble(),
+                        alignment: Alignment.center,
+                        child: AdWidget(ad: _anchoredAdaptiveAd!),
+                      );
+                    } else {
+                      final item =
+                          widget.lottoList![_getDestinationItemIndex(index)];
 
-                    return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: const BoxDecoration(
-                          border: Border(top: BorderSide())),
-                      child: Row(children: [
-                        Text(
-                          DateFormat('yyyy-MM-dd').format(item.drawDate!),
-                          style: TextStyle(
-                              fontSize:
-                                  AppConstants.fontSizeLarge * 0.75 * textScale,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        historyResultCheck(item, textScale, []),
-                      ]),
-                    );
-                  }
-                },
-              ),
+                      return Lotto34Hist(
+                        imgStr3: widget.imgStr3,
+                        imgStr4: widget.imgStr4,
+                        lotto: item,
+                      );
+                    }
+                  }),
             ),
           ],
         ),

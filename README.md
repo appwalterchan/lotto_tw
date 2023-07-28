@@ -1,3 +1,3 @@
-LATEST LOTTERY RESULTS: The app may provide the latest lottery results for popular Canada lotteries such as Lotto Max, Lotto 649, Daily Keno, Ontario 49, Pick-4, Pick-3 and Pick-2. Results may be updated in real-time as soon as they become available.
+最新開獎結果：這應用程式提供台灣熱門彩券開獎結果包括雙贏彩，威力彩，大樂透，今彩539，三星彩和四星彩。本應用程式會儘快提供即時開奬結果。
 
-Past Lottery Results: The app may have access to past Lotto Max, Lotto 649, Daily Keno, Ontario 49, Pick-4, Pick-3 and Pick-2 lottery results. This feature is useful for players who want to check which numbers they won in the previous draw.
+過往閏奬結果：本應用程式提供過往開𡘾結果，方便使用者核對巳往開奬結果，包括雙贏彩，威力彩，大樂透，今彩539，三星彩和四星彩。

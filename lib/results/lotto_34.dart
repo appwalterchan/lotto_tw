@@ -3,25 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:lotto_tw/api/canada_lotto_api.dart';
+import 'package:lotto_tw/api/draw_api.dart';
+import 'package:lotto_tw/page/latest_result_page.dart';
 
 import '../component/lotto_num.dart';
 import '../constant/app_constants.dart';
-import '../model/canada_lotto.dart';
-import '../page/history_result_keno_page.dart';
-import '../page/latest_result_keno_page.dart';
+import '../model/draw.dart';
+import '../page/history_result_34_page.dart';
 
-class LottoKeno extends StatefulWidget {
-  final String imgStr;
+class Lotto34 extends StatefulWidget {
+  final String imgStr3;
+  final String imgStr4;
   final String drawType;
-  const LottoKeno({super.key, required this.imgStr, required this.drawType});
+  const Lotto34(
+      {super.key,
+      required this.imgStr3,
+      required this.imgStr4,
+      required this.drawType});
 
   @override
-  State<LottoKeno> createState() => _LottoKenoState();
+  State<Lotto34> createState() => _Lotto34State();
 }
 
-class _LottoKenoState extends State<LottoKeno> {
-  late List<CanadaLotto>? lottoList = [];
+class _Lotto34State extends State<Lotto34> {
+  late List<Draw>? lottoList = [];
   InterstitialAd? interstitialAd;
 
   @override
@@ -37,7 +42,7 @@ class _LottoKenoState extends State<LottoKeno> {
   }
 
   void _getData() async {
-    lottoList = (await CanadaLottoApi.fetchCanadaLottoGet(widget.drawType))!;
+    lottoList = (await DrawApi.fetchAllLottoListGet(widget.drawType))!;
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => mounted ? setState(() {}) : {});
   }
@@ -85,7 +90,7 @@ class _LottoKenoState extends State<LottoKeno> {
     double fontMultiplier = screenWidth < 450 ? 1.1 : 0.65;
     fontMultiplier = screenWidth > 800 ? 0.55 : fontMultiplier;
     final double textScale = screenWidth / 1200 * fontMultiplier;
-    final double fontSize = 160 * textScale;
+    final double fontSize = 190 * textScale;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
@@ -105,24 +110,40 @@ class _LottoKenoState extends State<LottoKeno> {
                     ]
                   : [
                       Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: AppConstants.marginLarge * textScale),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: AppConstants.marginNormal),
                         width: screenWidth - screenOffset,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Image(
-                                  width: 220 * textScale,
-                                  image: AssetImage(widget.imgStr)),
-                              Text(
-                                DateFormat('yyyy-MM-dd')
-                                    .format(lottoList![0].date!),
-                                style: TextStyle(
-                                    fontSize:
-                                        AppConstants.fontSizeLarge * textScale,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.end,
+                                width: 220 * textScale,
+                                image: AssetImage(widget.imgStr3),
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    lottoList![0].drawNo,
+                                    style: TextStyle(
+                                        fontSize: AppConstants.fontSizeNormal *
+                                            textScale,
+                                        fontWeight: FontWeight.w500),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                  Text(
+                                    DateFormat('yyyy-MM-dd')
+                                        .format(lottoList![0].drawDate!),
+                                    style: TextStyle(
+                                        fontSize: AppConstants.fontSizeNormal *
+                                            textScale,
+                                        fontWeight: FontWeight.w500),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ],
+                              ),
+                              Image(
+                                width: 220 * textScale,
+                                image: AssetImage(widget.imgStr4),
                               ),
                             ]),
                       ),
@@ -132,54 +153,23 @@ class _LottoKenoState extends State<LottoKeno> {
                                 const CircularProgressIndicator(),
                               ]
                             : [
-                                lottoNum(lottoList![0].num1, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num2, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num3, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num4, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num5, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num6, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num7, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num8, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num9, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num10, textScale,
-                                    fontSize, Colors.blue),
-                              ],
-                      ),
-                      Row(
-                        children: lottoList == null || lottoList!.isEmpty
-                            ? [
-                                const CircularProgressIndicator(),
-                              ]
-                            : [
-                                lottoNum(lottoList![0].num11, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num12, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num13, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num14, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num15, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num16, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num17, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num18, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num19, textScale,
-                                    fontSize, Colors.blue),
-                                lottoNum(lottoList![0].num20, textScale,
-                                    fontSize, Colors.blue),
+                                lottoNum(lottoList![0].no5, textScale, fontSize,
+                                    Colors.blue),
+                                lottoNum(lottoList![0].no6, textScale, fontSize,
+                                    Colors.blue),
+                                lottoNum(lottoList![0].no7, textScale, fontSize,
+                                    Colors.blue),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                lottoNum(lottoList![0].no1, textScale, fontSize,
+                                    Colors.blue),
+                                lottoNum(lottoList![0].no2, textScale, fontSize,
+                                    Colors.blue),
+                                lottoNum(lottoList![0].no3, textScale, fontSize,
+                                    Colors.blue),
+                                lottoNum(lottoList![0].no4, textScale, fontSize,
+                                    Colors.blue),
                               ],
                       ),
                       Container(
@@ -196,6 +186,29 @@ class _LottoKenoState extends State<LottoKeno> {
                                       horizontal: AppConstants.marginNormal *
                                           textScale),
                                   foregroundColor: Colors.white,
+                                  backgroundColor: AppConstants.historyColor,
+                                  textStyle: TextStyle(
+                                      fontSize: AppConstants.fontSizeNormal *
+                                          textScale,
+                                      fontWeight: FontWeight.w700)),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LatestResultPage(
+                                        lotto: lottoList![0],
+                                        imgStr: widget.imgStr3),
+                                  ),
+                                );
+                              },
+                              child: Text('latestResultTxt'.tr),
+                            ),
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: AppConstants.marginNormal *
+                                          textScale),
+                                  foregroundColor: Colors.white,
                                   backgroundColor:
                                       AppConstants.latestResultColor,
                                   textStyle: TextStyle(
@@ -206,9 +219,11 @@ class _LottoKenoState extends State<LottoKeno> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => HistoryResultKenoPage(
-                                        lottoList: lottoList,
-                                        imgStr: widget.imgStr),
+                                    builder: (context) => HistoryResult34Page(
+                                      lottoList: lottoList,
+                                      imgStr3: widget.imgStr3,
+                                      imgStr4: widget.imgStr4,
+                                    ),
                                   ),
                                 );
                               },
@@ -229,9 +244,9 @@ class _LottoKenoState extends State<LottoKeno> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => LatestResultKenoPage(
+                                    builder: (context) => LatestResultPage(
                                         lotto: lottoList![0],
-                                        imgStr: widget.imgStr),
+                                        imgStr: widget.imgStr4),
                                   ),
                                 );
                               },

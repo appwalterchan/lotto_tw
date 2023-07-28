@@ -24,17 +24,17 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
   bool _isLoaded = false;
 
   String drawType = '1';
-  int numbers = 49;
-  int drawNumber = 7;
-  Color lottoMaxColor = Colors.white;
+  int numbers = 38;
+  int drawNumber = 6;
+  Color doubleWinColor = Colors.grey;
+  Color lotto638Color = Colors.white;
   Color lotto649Color = Colors.grey;
-  Color kenoColor = Colors.grey;
-  Color on49Color = Colors.grey;
+  Color lotto539Color = Colors.grey;
   List<dynamic>? lists = [];
-  List<dynamic>? lottoMaxLists = [];
+  List<dynamic>? doubleWinLists = [];
+  List<dynamic>? lotto638Lists = [];
   List<dynamic>? lotto649Lists = [];
-  List<dynamic>? kenoLists = [];
-  List<dynamic>? on49Lists = [];
+  List<dynamic>? lotto539Lists = [];
 
   final storage = const FlutterSecureStorage(
       aOptions: AndroidOptions(
@@ -99,24 +99,27 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
   }
 
   void _storeLatestLuckyNumbers() async {
-    await storage.write(key: "lottoMaxLists", value: jsonEncode(lottoMaxLists));
+    await storage.write(
+        key: "doubleWinLists", value: jsonEncode(doubleWinLists));
+    await storage.write(key: "lotto638Lists", value: jsonEncode(lotto638Lists));
     await storage.write(key: "lotto649Lists", value: jsonEncode(lotto649Lists));
-    await storage.write(key: "kenoLists", value: jsonEncode(kenoLists));
-    await storage.write(key: "on49Lists", value: jsonEncode(on49Lists));
+    await storage.write(key: "lotto539Lists", value: jsonEncode(lotto539Lists));
   }
 
   void _loadLatestLuckyNumbers() async {
-    String? histMaxLists = await storage.read(key: "lottoMaxLists");
+    String? histDoubleWinLists = await storage.read(key: "doubleWinLists");
+    String? hist638Lists = await storage.read(key: "lotto638Lists");
     String? hist649Lists = await storage.read(key: "lotto649Lists");
-    String? histKenoLists = await storage.read(key: "kenoLists");
-    String? hist49Lists = await storage.read(key: "on49Lists");
+    String? hist539Lists = await storage.read(key: "lotto539Lists");
+
     if (mounted) {
       setState(() {
-        lottoMaxLists = histMaxLists != null ? jsonDecode(histMaxLists) : [];
+        doubleWinLists =
+            histDoubleWinLists != null ? jsonDecode(histDoubleWinLists) : [];
+        lotto638Lists = hist638Lists != null ? jsonDecode(hist638Lists) : [];
         lotto649Lists = hist649Lists != null ? jsonDecode(hist649Lists) : [];
-        kenoLists = histKenoLists != null ? jsonDecode(histKenoLists) : [];
-        on49Lists = hist49Lists != null ? jsonDecode(hist49Lists) : [];
-        lists = lottoMaxLists;
+        lotto539Lists = hist539Lists != null ? jsonDecode(hist539Lists) : [];
+        lists = lotto638Lists;
       });
     }
   }
@@ -126,40 +129,40 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
       drawType = inDrawType;
       switch (inDrawType) {
         case '1':
-          drawNumber = 7;
-          numbers = 49;
-          lists = lottoMaxLists!.reversed.toList();
-          lottoMaxColor = Colors.white;
+          drawNumber = 6;
+          numbers = 38;
+          lists = lotto638Lists!.reversed.toList();
+          doubleWinColor = Colors.grey;
+          lotto638Color = Colors.white;
           lotto649Color = Colors.grey;
-          kenoColor = Colors.grey;
-          on49Color = Colors.grey;
+          lotto539Color = Colors.grey;
           break;
         case '2':
           drawNumber = 6;
           numbers = 49;
           lists = lotto649Lists!.reversed.toList();
-          lottoMaxColor = Colors.grey;
+          doubleWinColor = Colors.grey;
+          lotto638Color = Colors.grey;
           lotto649Color = Colors.white;
-          kenoColor = Colors.grey;
-          on49Color = Colors.grey;
+          lotto539Color = Colors.grey;
           break;
         case '3':
-          drawNumber = 20;
-          numbers = 70;
-          lists = kenoLists!.reversed.toList();
-          lottoMaxColor = Colors.grey;
+          drawNumber = 5;
+          numbers = 39;
+          lists = lotto539Lists!.reversed.toList();
+          doubleWinColor = Colors.grey;
+          lotto638Color = Colors.grey;
           lotto649Color = Colors.grey;
-          kenoColor = Colors.white;
-          on49Color = Colors.grey;
+          lotto539Color = Colors.white;
           break;
-        case '4':
-          drawNumber = 6;
-          numbers = 49;
-          lists = on49Lists!.reversed.toList();
-          lottoMaxColor = Colors.grey;
+        case '7':
+          drawNumber = 12;
+          numbers = 24;
+          lists = doubleWinLists!.reversed.toList();
+          doubleWinColor = Colors.white;
+          lotto638Color = Colors.grey;
           lotto649Color = Colors.grey;
-          kenoColor = Colors.grey;
-          on49Color = Colors.white;
+          lotto539Color = Colors.grey;
           break;
       }
     });
@@ -184,20 +187,20 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
     setState(() {
       switch (drawType) {
         case '1':
-          lottoMaxLists!.add(tempList);
-          lists = lottoMaxLists!.reversed.toList();
+          lotto638Lists!.add(tempList);
+          lists = lotto638Lists!.reversed.toList();
           break;
         case '2':
           lotto649Lists!.add(tempList);
           lists = lotto649Lists!.reversed.toList();
           break;
         case '3':
-          kenoLists!.add(tempList);
-          lists = kenoLists!.reversed.toList();
+          lotto539Lists!.add(tempList);
+          lists = lotto539Lists!.reversed.toList();
           break;
-        case '4':
-          on49Lists!.add(tempList);
-          lists = on49Lists!.reversed.toList();
+        case '7':
+          doubleWinLists!.add(tempList);
+          lists = doubleWinLists!.reversed.toList();
           break;
       }
     });
@@ -210,10 +213,10 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
         case '1':
           if (lists!.length > index) {
             lists!.remove(index);
-            lottoMaxLists = lottoMaxLists!.reversed.toList();
-            lottoMaxLists!.removeAt(index);
-            lottoMaxLists = lottoMaxLists!.reversed.toList();
-            lists = lottoMaxLists;
+            lotto638Lists = lotto638Lists!.reversed.toList();
+            lotto638Lists!.removeAt(index);
+            lotto638Lists = lotto638Lists!.reversed.toList();
+            lists = lotto638Lists;
           }
           break;
         case '2':
@@ -228,19 +231,19 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
         case '3':
           if (lists!.length > index) {
             lists!.remove(index);
-            kenoLists = kenoLists!.reversed.toList();
-            kenoLists!.removeAt(index);
-            kenoLists = kenoLists!.reversed.toList();
-            lists = kenoLists;
+            lotto539Lists = lotto539Lists!.reversed.toList();
+            lotto539Lists!.removeAt(index);
+            lotto539Lists = lotto539Lists!.reversed.toList();
+            lists = lotto539Lists;
           }
           break;
-        case '4':
+        case '7':
           if (lists!.length > index) {
             lists!.remove(index);
-            on49Lists = on49Lists!.reversed.toList();
-            on49Lists!.removeAt(index);
-            on49Lists = on49Lists!.reversed.toList();
-            lists = on49Lists;
+            doubleWinLists = doubleWinLists!.reversed.toList();
+            doubleWinLists!.removeAt(index);
+            doubleWinLists = doubleWinLists!.reversed.toList();
+            lists = doubleWinLists;
           }
           break;
       }
@@ -308,34 +311,6 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
               const SizedBox(
                 width: 2,
               ),
-              drawNumber > 6
-                  ? lottoNum(lists![idx][6].toString(), textScale, fontSize,
-                      AppConstants.luckyDrawColor)
-                  : Container(),
-              const SizedBox(
-                width: 2,
-              ),
-              drawNumber > 7
-                  ? lottoNum(lists![idx][7].toString(), textScale, fontSize,
-                      AppConstants.luckyDrawColor)
-                  : Container(),
-              const SizedBox(
-                width: 2,
-              ),
-              drawNumber > 8
-                  ? lottoNum(lists![idx][8].toString(), textScale, fontSize,
-                      AppConstants.luckyDrawColor)
-                  : Container(),
-              const SizedBox(
-                width: 2,
-              ),
-              drawNumber > 9
-                  ? lottoNum(lists![idx][9].toString(), textScale, fontSize,
-                      AppConstants.luckyDrawColor)
-                  : Container(),
-              const SizedBox(
-                width: 2,
-              ),
               const Spacer(),
               IconButton(
                 icon: Icon(
@@ -348,55 +323,35 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
               ),
             ],
           ),
-          drawNumber > 10
+          drawNumber > 6
               ? Row(
                   children: [
+                    lottoNum(lists![idx][6].toString(), textScale, fontSize,
+                        AppConstants.luckyDrawColor),
+                    const SizedBox(
+                      width: 2,
+                    ),
+                    lottoNum(lists![idx][7].toString(), textScale, fontSize,
+                        AppConstants.luckyDrawColor),
+                    const SizedBox(
+                      width: 2,
+                    ),
+                    lottoNum(lists![idx][8].toString(), textScale, fontSize,
+                        AppConstants.luckyDrawColor),
+                    const SizedBox(
+                      width: 2,
+                    ),
+                    lottoNum(lists![idx][9].toString(), textScale, fontSize,
+                        AppConstants.luckyDrawColor),
+                    const SizedBox(
+                      width: 2,
+                    ),
                     lottoNum(lists![idx][10].toString(), textScale, fontSize,
                         AppConstants.luckyDrawColor),
                     const SizedBox(
                       width: 2,
                     ),
                     lottoNum(lists![idx][11].toString(), textScale, fontSize,
-                        AppConstants.luckyDrawColor),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    lottoNum(lists![idx][12].toString(), textScale, fontSize,
-                        AppConstants.luckyDrawColor),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    lottoNum(lists![idx][13].toString(), textScale, fontSize,
-                        AppConstants.luckyDrawColor),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    lottoNum(lists![idx][14].toString(), textScale, fontSize,
-                        AppConstants.luckyDrawColor),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    lottoNum(lists![idx][15].toString(), textScale, fontSize,
-                        AppConstants.luckyDrawColor),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    lottoNum(lists![idx][16].toString(), textScale, fontSize,
-                        AppConstants.luckyDrawColor),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    lottoNum(lists![idx][17].toString(), textScale, fontSize,
-                        AppConstants.luckyDrawColor),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    lottoNum(lists![idx][18].toString(), textScale, fontSize,
-                        AppConstants.luckyDrawColor),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    lottoNum(lists![idx][19].toString(), textScale, fontSize,
                         AppConstants.luckyDrawColor),
                     const SizedBox(
                       width: 2,
@@ -466,18 +421,33 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
                       InkWell(
                         splashColor: Colors.black26,
                         onTap: () {
-                          changeDrawType('1');
+                          changeDrawType('7');
                         },
                         child: Ink.image(
                           colorFilter: ColorFilter.mode(
-                            lottoMaxColor,
+                            doubleWinColor,
                             BlendMode.modulate,
                           ),
                           width: 60 * imgScale,
                           height: 25 * imgScale,
                           image: const AssetImage(
-                            "assets/image/max.png",
+                            "assets/image/doubleWin.png",
                           ),
+                        ),
+                      ),
+                      InkWell(
+                        splashColor: Colors.black26,
+                        onTap: () {
+                          changeDrawType('1');
+                        },
+                        child: Ink.image(
+                          colorFilter: ColorFilter.mode(
+                            lotto638Color,
+                            BlendMode.modulate,
+                          ),
+                          width: 60 * imgScale,
+                          height: 25 * imgScale,
+                          image: const AssetImage("assets/image/lotto638.png"),
                         ),
                       ),
                       InkWell(
@@ -492,7 +462,7 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
                           ),
                           width: 60 * imgScale,
                           height: 25 * imgScale,
-                          image: const AssetImage("assets/image/649.png"),
+                          image: const AssetImage("assets/image/lotto649.jpg"),
                         ),
                       ),
                       InkWell(
@@ -502,28 +472,12 @@ class _LuckyDrawPageState extends State<LuckyDrawPage> {
                         },
                         child: Ink.image(
                           colorFilter: ColorFilter.mode(
-                            kenoColor,
-                            BlendMode.modulate,
-                          ),
-                          width: 60 * imgScale,
-                          height: 25 * imgScale,
-                          image:
-                              const AssetImage("assets/image/daily-keno.png"),
-                        ),
-                      ),
-                      InkWell(
-                        splashColor: Colors.black26,
-                        onTap: () {
-                          changeDrawType('4');
-                        },
-                        child: Ink.image(
-                          colorFilter: ColorFilter.mode(
-                            on49Color,
+                            lotto539Color,
                             BlendMode.modulate,
                           ),
                           width: 72 * imgScale,
                           height: 36 * imgScale,
-                          image: const AssetImage("assets/image/49.png"),
+                          image: const AssetImage("assets/image/lotto539.jpeg"),
                         ),
                       ),
                     ],

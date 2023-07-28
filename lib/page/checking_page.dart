@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:lotto_tw/page/check_results_page.dart';
 
 import '../component/lotto_num_check.dart';
 import '../component/page_header.dart';
 import '../constant/app_constants.dart';
+import 'check_results_page.dart';
 
 class CheckingPage extends StatefulWidget {
   const CheckingPage({super.key});
@@ -20,23 +20,18 @@ class _CheckingState extends State<CheckingPage> {
   bool _isLoaded = false;
 
   String drawType = '1';
-  String imgStr = 'assets/image/max.png';
-  int numbers = 49;
-  int drawNumber = 7;
-  Color lottoMaxColor = Colors.white;
+  String imgStr = 'assets/image/lotto638.png';
+  int numbers = 38;
+  int drawNumber = 6;
+  Color doubleWinColor = Colors.grey;
+  Color lotto638Color = Colors.white;
   Color lotto649Color = Colors.grey;
-  Color kenoColor = Colors.grey;
-  Color on49Color = Colors.grey;
-  // late List<CanadaLotto>? apiLottoMaxList = [];
-  // late List<CanadaLotto>? apiLotto649List = [];
-  // late List<CanadaLotto>? apiKenoList = [];
-  // late List<CanadaLotto>? apiOn49List = [];
-  // late List<CanadaLotto>? apiLottoNumList = [];
+  Color lotto539Color = Colors.grey;
   List<String> checkNumbers = [];
-  List<String> checkNumbersLottoMax = [];
+  List<String> checkNumbersDoubleWin = [];
+  List<String> checkNumbersLotto638 = [];
   List<String> checkNumbersLotto649 = [];
-  List<String> checkNumbersKeno = [];
-  List<String> checkNumbersOn49 = [];
+  List<String> checkNumbersLotto539 = [];
 
   final storage = const FlutterSecureStorage(
       aOptions: AndroidOptions(
@@ -60,18 +55,6 @@ class _CheckingState extends State<CheckingPage> {
     super.didChangeDependencies();
     _loadAd();
   }
-
-  // void _getData() async {
-  //   apiLottoMaxList = (await CanadaLottoApi.fetchCanadaLottoGet('1'))!;
-  //   apiLotto649List = (await CanadaLottoApi.fetchCanadaLottoGet('2'))!;
-  //   apiKenoList = (await CanadaLottoApi.fetchCanadaLottoGet('3'))!;
-  //   apiOn49List = (await CanadaLottoApi.fetchCanadaLottoGet('4'))!;
-  //   setState(() {
-  //     apiLottoNumList = apiLottoMaxList;
-  //   });
-  //   Future.delayed(const Duration(milliseconds: 200))
-  //       .then((value) => mounted ? setState(() {}) : {});
-  // }
 
   Future<void> _loadAd() async {
     // Get an AnchoredAdaptiveBannerAdSize before loading the ad.
@@ -116,48 +99,44 @@ class _CheckingState extends State<CheckingPage> {
       drawType = inDrawType;
       switch (inDrawType) {
         case '1':
-          imgStr = 'assets/image/max.png';
-          drawNumber = 7;
-          numbers = 49;
-          // apiLottoNumList = apiLottoMaxList;
-          checkNumbers = checkNumbersLottoMax;
-          lottoMaxColor = Colors.white;
+          imgStr = 'assets/image/lotto638.png';
+          drawNumber = 6;
+          numbers = 38;
+          checkNumbers = checkNumbersLotto638;
+          doubleWinColor = Colors.grey;
+          lotto638Color = Colors.white;
           lotto649Color = Colors.grey;
-          kenoColor = Colors.grey;
-          on49Color = Colors.grey;
+          lotto539Color = Colors.grey;
           break;
         case '2':
-          imgStr = 'assets/image/649.png';
+          imgStr = 'assets/image/lotto649.jpg';
           drawNumber = 6;
           numbers = 49;
-          // apiLottoNumList = apiLotto649List;
           checkNumbers = checkNumbersLotto649;
-          lottoMaxColor = Colors.grey;
+          doubleWinColor = Colors.grey;
+          lotto638Color = Colors.grey;
           lotto649Color = Colors.white;
-          kenoColor = Colors.grey;
-          on49Color = Colors.grey;
+          lotto539Color = Colors.grey;
           break;
         case '3':
-          imgStr = 'assets/image/daily-keno.png';
-          drawNumber = 20;
-          numbers = 70;
-          // apiLottoNumList = apiKenoList;
-          checkNumbers = checkNumbersKeno;
-          lottoMaxColor = Colors.grey;
+          imgStr = 'assets/image/lotto539.jpeg';
+          drawNumber = 5;
+          numbers = 39;
+          checkNumbers = checkNumbersLotto539;
+          doubleWinColor = Colors.grey;
+          lotto638Color = Colors.grey;
           lotto649Color = Colors.grey;
-          kenoColor = Colors.white;
-          on49Color = Colors.grey;
+          lotto539Color = Colors.white;
           break;
-        case '4':
-          imgStr = 'assets/image/49.png';
-          drawNumber = 6;
-          numbers = 49;
-          // apiLottoNumList = apiOn49List;
-          checkNumbers = checkNumbersOn49;
-          lottoMaxColor = Colors.grey;
+        case '7':
+          imgStr = 'assets/image/doubleWin.png';
+          drawNumber = 12;
+          numbers = 24;
+          checkNumbers = checkNumbersDoubleWin;
+          doubleWinColor = Colors.white;
+          lotto638Color = Colors.grey;
           lotto649Color = Colors.grey;
-          kenoColor = Colors.grey;
-          on49Color = Colors.white;
+          lotto539Color = Colors.grey;
           break;
       }
     });
@@ -167,8 +146,8 @@ class _CheckingState extends State<CheckingPage> {
     switch (drawType) {
       case "1":
         setState(() {
-          checkNumbersLottoMax.add(str);
-          checkNumbers = checkNumbersLottoMax;
+          checkNumbersLotto638.add(str);
+          checkNumbers = checkNumbersLotto638;
         });
         break;
       case "2":
@@ -179,14 +158,14 @@ class _CheckingState extends State<CheckingPage> {
         break;
       case "3":
         setState(() {
-          checkNumbersKeno.add(str);
-          checkNumbers = checkNumbersKeno;
+          checkNumbersLotto539.add(str);
+          checkNumbers = checkNumbersLotto539;
         });
         break;
-      case "4":
+      case "7":
         setState(() {
-          checkNumbersOn49.add(str);
-          checkNumbers = checkNumbersOn49;
+          checkNumbersDoubleWin.add(str);
+          checkNumbers = checkNumbersDoubleWin;
         });
         break;
     }
@@ -196,8 +175,8 @@ class _CheckingState extends State<CheckingPage> {
     switch (drawType) {
       case "1":
         setState(() {
-          checkNumbersLottoMax.remove(str);
-          checkNumbers = checkNumbersLottoMax;
+          checkNumbersLotto638.remove(str);
+          checkNumbers = checkNumbersLotto638;
         });
         break;
       case "2":
@@ -208,14 +187,14 @@ class _CheckingState extends State<CheckingPage> {
         break;
       case "3":
         setState(() {
-          checkNumbersKeno.remove(str);
-          checkNumbers = checkNumbersKeno;
+          checkNumbersLotto539.remove(str);
+          checkNumbers = checkNumbersLotto539;
         });
         break;
-      case "4":
+      case "7":
         setState(() {
-          checkNumbersOn49.remove(str);
-          checkNumbers = checkNumbersOn49;
+          checkNumbersDoubleWin.remove(str);
+          checkNumbers = checkNumbersDoubleWin;
         });
         break;
     }
@@ -263,17 +242,34 @@ class _CheckingState extends State<CheckingPage> {
                 InkWell(
                   splashColor: Colors.black26,
                   onTap: () {
-                    changeDrawType('1');
+                    changeDrawType('7');
                   },
                   child: Ink.image(
                     colorFilter: ColorFilter.mode(
-                      lottoMaxColor,
+                      doubleWinColor,
                       BlendMode.modulate,
                     ),
                     width: 60 * imgScale,
                     height: 25 * imgScale,
                     image: const AssetImage(
-                      "assets/image/max.png",
+                      "assets/image/doubleWin.png",
+                    ),
+                  ),
+                ),
+                InkWell(
+                  splashColor: Colors.black26,
+                  onTap: () {
+                    changeDrawType('1');
+                  },
+                  child: Ink.image(
+                    colorFilter: ColorFilter.mode(
+                      lotto638Color,
+                      BlendMode.modulate,
+                    ),
+                    width: 60 * imgScale,
+                    height: 25 * imgScale,
+                    image: const AssetImage(
+                      "assets/image/lotto638.png",
                     ),
                   ),
                 ),
@@ -289,7 +285,7 @@ class _CheckingState extends State<CheckingPage> {
                     ),
                     width: 60 * imgScale,
                     height: 25 * imgScale,
-                    image: const AssetImage("assets/image/649.png"),
+                    image: const AssetImage("assets/image/lotto649.jpg"),
                   ),
                 ),
                 InkWell(
@@ -299,27 +295,12 @@ class _CheckingState extends State<CheckingPage> {
                   },
                   child: Ink.image(
                     colorFilter: ColorFilter.mode(
-                      kenoColor,
+                      lotto539Color,
                       BlendMode.modulate,
                     ),
                     width: 60 * imgScale,
                     height: 25 * imgScale,
-                    image: const AssetImage("assets/image/daily-keno.png"),
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {
-                    changeDrawType('4');
-                  },
-                  child: Ink.image(
-                    colorFilter: ColorFilter.mode(
-                      on49Color,
-                      BlendMode.modulate,
-                    ),
-                    width: 72 * imgScale,
-                    height: 36 * imgScale,
-                    image: const AssetImage("assets/image/49.png"),
+                    image: const AssetImage("assets/image/lotto539.jpeg"),
                   ),
                 ),
               ],
@@ -359,7 +340,6 @@ class _CheckingState extends State<CheckingPage> {
             MaterialPageRoute(
               builder: (context) => CheckResultsPage(
                   drawType: drawType,
-                  // lottoList: apiLottoNumList,
                   checkNumbers: checkNumbers,
                   imgStr: imgStr),
             ),

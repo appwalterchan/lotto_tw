@@ -4,7 +4,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../component/page_header.dart';
 import '../constant/app_constants.dart';
-import '../results/lotto_keno.dart';
+import '../results/lotto_34.dart';
+import '../results/lotto_double_win.dart';
 import '../results/lotto_normal.dart';
 
 class AllResultsPage extends StatefulWidget {
@@ -104,33 +105,26 @@ class _AllResultsPageState extends State<AllResultsPage> {
                       )
                     : null,
               ),
+              const LottoDoubleWin(
+                imgStr: 'assets/image/doubleWin.png',
+                drawType: '7',
+              ),
               const LottoNormal(
-                imgStr: 'assets/image/max.png',
+                imgStr: 'assets/image/lotto638.png',
                 drawType: '1',
               ),
               const LottoNormal(
-                imgStr: 'assets/image/649.png',
+                imgStr: 'assets/image/lotto649.jpg',
                 drawType: '2',
               ),
-              const LottoKeno(
-                imgStr: 'assets/image/daily-keno.png',
+              const LottoNormal(
+                imgStr: 'assets/image/lotto539.jpeg',
                 drawType: '3',
               ),
-              const LottoNormal(
-                imgStr: 'assets/image/49.png',
+              const Lotto34(
+                imgStr3: 'assets/image/lotto3.png',
+                imgStr4: 'assets/image/lotto4.jpeg',
                 drawType: '4',
-              ),
-              const LottoNormal(
-                imgStr: 'assets/image/pick4.png',
-                drawType: '5',
-              ),
-              const LottoNormal(
-                imgStr: 'assets/image/pick3.png',
-                drawType: '6',
-              ),
-              const LottoNormal(
-                imgStr: 'assets/image/pick2.png',
-                drawType: '7',
               ),
             ],
           ),

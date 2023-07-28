@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: LocaleString(),
-      locale: const Locale('en', 'US'),
+      locale: const Locale('zh', 'TW'),
       theme: ThemeData(
           //    useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),

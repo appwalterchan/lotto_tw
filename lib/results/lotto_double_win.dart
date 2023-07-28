@@ -4,23 +4,24 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:lotto_tw/api/draw_api.dart';
-import 'package:lotto_tw/page/history_result_page.dart';
-import 'package:lotto_tw/page/latest_result_page.dart';
 
 import '../component/lotto_num.dart';
 import '../constant/app_constants.dart';
 import '../model/draw.dart';
+import '../page/history_result_double_win_page.dart';
+import '../page/latest_result_double_win_page.dart';
 
-class LottoNormal extends StatefulWidget {
+class LottoDoubleWin extends StatefulWidget {
   final String imgStr;
   final String drawType;
-  const LottoNormal({super.key, required this.imgStr, required this.drawType});
+  const LottoDoubleWin(
+      {super.key, required this.imgStr, required this.drawType});
 
   @override
-  State<LottoNormal> createState() => _LottoNormalState();
+  State<LottoDoubleWin> createState() => _LottoDoubleWinState();
 }
 
-class _LottoNormalState extends State<LottoNormal> {
+class _LottoDoubleWinState extends State<LottoDoubleWin> {
   late List<Draw>? lottoList = [];
   InterstitialAd? interstitialAd;
 
@@ -85,7 +86,7 @@ class _LottoNormalState extends State<LottoNormal> {
     double fontMultiplier = screenWidth < 450 ? 1.1 : 0.65;
     fontMultiplier = screenWidth > 800 ? 0.55 : fontMultiplier;
     final double textScale = screenWidth / 1200 * fontMultiplier;
-    final double fontSize = 190 * textScale;
+    final double fontSize = 160 * textScale;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
@@ -113,9 +114,8 @@ class _LottoNormalState extends State<LottoNormal> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Image(
-                                width: 220 * textScale,
-                                image: AssetImage(widget.imgStr),
-                              ),
+                                  width: 220 * textScale,
+                                  image: AssetImage(widget.imgStr)),
                               Text(
                                 lottoList![0].drawNo,
                                 style: TextStyle(
@@ -153,11 +153,26 @@ class _LottoNormalState extends State<LottoNormal> {
                                     Colors.blue),
                                 lottoNum(lottoList![0].no6, textScale, fontSize,
                                     Colors.blue),
-                                const SizedBox(
-                                  width: 10,
-                                ),
+                              ],
+                      ),
+                      Row(
+                        children: lottoList == null || lottoList!.isEmpty
+                            ? [
+                                const CircularProgressIndicator(),
+                              ]
+                            : [
                                 lottoNum(lottoList![0].no7, textScale, fontSize,
-                                    Colors.red),
+                                    Colors.blue),
+                                lottoNum(lottoList![0].no8, textScale, fontSize,
+                                    Colors.blue),
+                                lottoNum(lottoList![0].no9, textScale, fontSize,
+                                    Colors.blue),
+                                lottoNum(lottoList![0].no10, textScale,
+                                    fontSize, Colors.blue),
+                                lottoNum(lottoList![0].no11, textScale,
+                                    fontSize, Colors.blue),
+                                lottoNum(lottoList![0].no12, textScale,
+                                    fontSize, Colors.blue),
                               ],
                       ),
                       Container(
@@ -184,9 +199,10 @@ class _LottoNormalState extends State<LottoNormal> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => HistoryResultPage(
-                                        lottoList: lottoList,
-                                        imgStr: widget.imgStr),
+                                    builder: (context) =>
+                                        HistoryResultDoubleWinPage(
+                                            lottoList: lottoList,
+                                            imgStr: widget.imgStr),
                                   ),
                                 );
                               },
@@ -207,9 +223,10 @@ class _LottoNormalState extends State<LottoNormal> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => LatestResultPage(
-                                        lotto: lottoList![0],
-                                        imgStr: widget.imgStr),
+                                    builder: (context) =>
+                                        LatestResultDoubleWinPage(
+                                            lotto: lottoList![0],
+                                            imgStr: widget.imgStr),
                                   ),
                                 );
                               },

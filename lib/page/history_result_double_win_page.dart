@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:lotto_tw/component/history_result_keno_check.dart';
-import 'package:lotto_tw/model/canada_lotto.dart';
+import 'package:lotto_tw/model/draw.dart';
 
+import '../component/history_result_double_win_check copy.dart';
 import '../component/page_header.dart';
 import '../constant/app_constants.dart';
 
-class HistoryResultKenoPage extends StatefulWidget {
-  final List<CanadaLotto>? lottoList;
+class HistoryResultDoubleWinPage extends StatefulWidget {
+  final List<Draw>? lottoList;
   final String imgStr;
-  const HistoryResultKenoPage(
+  const HistoryResultDoubleWinPage(
       {super.key, required this.lottoList, required this.imgStr});
 
   @override
-  State<HistoryResultKenoPage> createState() => _HistoryResultKenoState();
+  State<HistoryResultDoubleWinPage> createState() =>
+      _HistoryResultDoubleWinState();
 }
 
-class _HistoryResultKenoState extends State<HistoryResultKenoPage> {
+class _HistoryResultDoubleWinState extends State<HistoryResultDoubleWinPage> {
   final _kAdIndex = 10;
 
   BannerAd? _anchoredAdaptiveAd;
@@ -135,33 +136,18 @@ class _HistoryResultKenoState extends State<HistoryResultKenoPage> {
                       child: Row(
                           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  DateFormat('yyyy-MM-dd').format(item.date!),
-                                  style: TextStyle(
-                                      fontSize: AppConstants.fontSizeLarge *
-                                          0.75 *
-                                          textScale,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                item.drawDateType.isNotEmpty
-                                    ? Text(
-                                        item.drawDateType,
-                                        style: TextStyle(
-                                          fontSize: AppConstants.fontSizeSmall *
-                                              0.75 *
-                                              textScale,
-                                        ),
-                                      )
-                                    : Container(),
-                              ],
+                            Text(
+                              DateFormat('yyyy-MM-dd').format(item.drawDate!),
+                              style: TextStyle(
+                                  fontSize: AppConstants.fontSizeLarge *
+                                      0.75 *
+                                      textScale,
+                                  fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
                               width: 10,
                             ),
-                            historyResultKenoCheck(item, textScale, []),
+                            historyResultDoubleWinCheck(item, textScale, []),
                           ]),
                     );
                   }

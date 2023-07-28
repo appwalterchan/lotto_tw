@@ -19,11 +19,11 @@ class AppConstants {
   static const int lotto7Numbers = 37;
   static const int lottoMNumbers = 31;
 
-  static const int interAdFrequency = 2;
+  static const int interAdFrequency = 3;
 
   static String get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-1139352776311243/6929925456';
+      return 'ca-app-pub-1139352776311243/4879784090';
     } else if (Platform.isIOS) {
       return 'ca-app-pub-3940256099942544/2934735716';
     } else {
@@ -33,19 +33,9 @@ class AppConstants {
 
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-1139352776311243/5198821637';
+      return 'ca-app-pub-1139352776311243/5368020639';
     } else if (Platform.isIOS) {
       return 'ca-app-pub-3940256099942544/2934735716';
-    } else {
-      throw UnsupportedError('Unsupported platform');
-    }
-  }
-
-  static String get rewardedAdUnitId {
-    if (Platform.isAndroid) {
-      return 'ca-app-pub-1139352776311243/6818244810';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-1139352776311243/6818244810';
     } else {
       throw UnsupportedError('Unsupported platform');
     }

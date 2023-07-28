@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:lotto_tw/model/canada_lotto.dart';
-import 'package:lotto_tw/model/prize_data.dart';
+import 'package:lotto_tw/component/prize_info_component.dart';
+import 'package:lotto_tw/model/draw.dart';
+import 'package:lotto_tw/model/prize_info.dart';
 
-import '../api/prize_data_api.dart';
+import '../api/prize_info_api.dart';
 import '../component/lotto_num.dart';
-import '../component/lotto_prize.dart';
 import '../component/page_header.dart';
 import '../constant/app_constants.dart';
 
-class LatestResultKenoPage extends StatefulWidget {
-  final CanadaLotto lotto;
+class LatestResultDoubleWinPage extends StatefulWidget {
+  final Draw lotto;
   final String imgStr;
-  const LatestResultKenoPage(
+  const LatestResultDoubleWinPage(
       {super.key, required this.lotto, required this.imgStr});
 
   @override
-  State<LatestResultKenoPage> createState() => _LatestResultKenoPageState();
+  State<LatestResultDoubleWinPage> createState() =>
+      _LatestResultDoubleWinState();
 }
 
-class _LatestResultKenoPageState extends State<LatestResultKenoPage> {
+class _LatestResultDoubleWinState extends State<LatestResultDoubleWinPage> {
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
-  late List<PrizeData>? prizeDataList = [];
+  late List<PrizeInfo>? prizeDataList = [];
 
   void _getPrizeData() async {
-    prizeDataList = (await PrizeDataApi.fetchPrizeDataGet(
-        widget.lotto.drawType, widget.lotto.date))!;
+    prizeDataList = (await PrizeInfoApi.fetchPrizeInfoGet(
+        widget.lotto.drawType, widget.lotto.drawNo))!;
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => mounted ? setState(() {}) : {});
   }
@@ -142,39 +143,23 @@ class _LatestResultKenoPageState extends State<LatestResultKenoPage> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            lottoNum(widget.lotto.num1, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num2, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num3, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num4, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num5, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num6, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num7, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num8, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num9, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num10, textScale, fontSize, Colors.blue),
-            SizedBox(
-              width: fontSize / 4,
-            ),
-            lottoNum(widget.lotto.bonus, textScale, fontSize, Colors.red),
+            lottoNum(widget.lotto.no1, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no2, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no3, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no4, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no5, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no6, textScale, fontSize, Colors.blue),
           ],
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            lottoNum(widget.lotto.num11, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num12, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num13, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num14, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num15, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num16, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num17, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num18, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num19, textScale, fontSize, Colors.blue),
-            lottoNum(widget.lotto.num20, textScale, fontSize, Colors.blue),
-            SizedBox(
-              width: fontSize / 4,
-            ),
-            lottoNum(widget.lotto.bonus, textScale, fontSize, Colors.red),
+            lottoNum(widget.lotto.no7, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no8, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no9, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no10, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no11, textScale, fontSize, Colors.blue),
+            lottoNum(widget.lotto.no12, textScale, fontSize, Colors.blue),
           ],
         ),
         const SizedBox(height: 10),
@@ -185,7 +170,8 @@ class _LatestResultKenoPageState extends State<LatestResultKenoPage> {
                     padding: const EdgeInsets.all(8),
                     itemCount: prizeDataList!.length,
                     itemBuilder: (BuildContext context, int i) {
-                      return lottoPrize(textScale, flexNo1, prizeDataList![i]);
+                      return prizeInfoComponent(
+                          textScale, flexNo1, prizeDataList![i]);
                       //                         x.ticketWon);
                     }),
               ),

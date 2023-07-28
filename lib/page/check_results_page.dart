@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:lotto_tw/model/canada_lotto.dart';
+import 'package:lotto_tw/model/draw.dart';
 
-import '../api/canada_lotto_api.dart';
+import '../api/draw_api.dart';
+import '../component/history_result_34_check.dart';
 import '../component/history_result_check.dart';
-import '../component/history_result_keno_check.dart';
+import '../component/history_result_double_win_check copy.dart';
 import '../component/page_header.dart';
 import '../constant/app_constants.dart';
 
 class CheckResultsPage extends StatefulWidget {
   final String drawType;
-  // final List<CanadaLotto>? lottoList;
   final List<String> checkNumbers;
   final String imgStr;
   const CheckResultsPage(
       {super.key,
       required this.drawType,
-      // required this.lottoList,
       required this.checkNumbers,
       required this.imgStr});
 
@@ -32,7 +31,7 @@ class _CheckResultsState extends State<CheckResultsPage> {
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
 
-  late List<CanadaLotto>? apiLottoList = [];
+  late List<Draw>? apiLottoList = [];
 
   @override
   void initState() {
@@ -53,7 +52,7 @@ class _CheckResultsState extends State<CheckResultsPage> {
   }
 
   void _getData() async {
-    apiLottoList = (await CanadaLottoApi.fetchCanadaLottoGet(widget.drawType))!;
+    apiLottoList = (await DrawApi.fetchAllLottoListGet(widget.drawType))!;
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => mounted ? setState(() {}) : {});
   }
@@ -152,39 +151,25 @@ class _CheckResultsState extends State<CheckResultsPage> {
                             decoration: const BoxDecoration(
                                 border: Border(top: BorderSide())),
                             child: Row(children: [
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    DateFormat('yyyy-MM-dd').format(item.date!),
-                                    style: TextStyle(
-                                        fontSize: AppConstants.fontSizeLarge *
-                                            0.75 *
-                                            textScale,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  item.drawDateType.isNotEmpty
-                                      ? Text(
-                                          item.drawDateType,
-                                          style: TextStyle(
-                                            fontSize:
-                                                AppConstants.fontSizeSmall *
-                                                    0.75 *
-                                                    textScale,
-                                          ),
-                                        )
-                                      : Container(),
-                                ],
+                              Text(
+                                DateFormat('yyyy-MM-dd').format(item.drawDate!),
+                                style: TextStyle(
+                                    fontSize: AppConstants.fontSizeLarge *
+                                        0.75 *
+                                        textScale,
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 10,
                               ),
-                              widget.drawType != '3'
-                                  ? historyResultCheck(
+                              widget.drawType == '7'
+                                  ? historyResultDoubleWinCheck(
                                       item, textScale, widget.checkNumbers)
-                                  : historyResultKenoCheck(
-                                      item, textScale, widget.checkNumbers),
+                                  : widget.drawType == '4'
+                                      ? historyResult34Check(
+                                          item, textScale, widget.checkNumbers)
+                                      : historyResultCheck(
+                                          item, textScale, widget.checkNumbers),
                             ]),
                           );
                         }

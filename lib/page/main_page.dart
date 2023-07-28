@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lotto_tw/constant/locale_string.dart';
 import 'package:lotto_tw/page/checking_page.dart';
+import 'package:lotto_tw/page/statistic_page.dart';
 
 import '../constant/app_constants.dart';
 import 'all_result_page.dart';
@@ -87,6 +88,9 @@ class _MainPageState extends State<MainPage> {
         page = const LuckyDrawPage();
         break;
       case 2:
+        page = const StatisticPage();
+        break;
+      case 3:
         page = const CheckingPage();
         break;
       default:
@@ -119,6 +123,10 @@ class _MainPageState extends State<MainPage> {
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.favorite),
                         label: 'luckyDrawTxt'.tr,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.add_chart),
+                        label: 'statisticTxt'.tr,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.check),
@@ -154,6 +162,10 @@ class _MainPageState extends State<MainPage> {
                       NavigationRailDestination(
                         icon: const Icon(Icons.favorite),
                         label: Text('luckyDrawTxt'.tr),
+                      ),
+                      NavigationRailDestination(
+                        icon: const Icon(Icons.add_chart),
+                        label: Text('statisticTxt'.tr),
                       ),
                       NavigationRailDestination(
                         icon: const Icon(Icons.check),
