@@ -26,8 +26,26 @@ class _LatestResultPageState extends State<LatestResultPage> {
   late List<PrizeInfo>? prizeDataList = [];
 
   void _getPrizeData() async {
+    List<PrizeInfo> tempList = [];
     prizeDataList = (await PrizeInfoApi.fetchPrizeInfoGet(
         widget.lotto.drawType, widget.lotto.drawNo))!;
+    switch (widget.lotto.drawType) {
+      case "1":
+        tempList =
+            (await PrizeInfoApi.fetchPrizeInfoGet("9", widget.lotto.drawNo))!;
+        prizeDataList?.addAll(tempList);
+        break;
+      case "2":
+        tempList =
+            (await PrizeInfoApi.fetchPrizeInfoGet("8", widget.lotto.drawNo))!;
+        prizeDataList?.addAll(tempList);
+        break;
+      case "3":
+        tempList =
+            (await PrizeInfoApi.fetchPrizeInfoGet("12", widget.lotto.drawNo))!;
+        prizeDataList?.addAll(tempList);
+        break;
+    }
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => mounted ? setState(() {}) : {});
   }
